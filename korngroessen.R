@@ -3,8 +3,8 @@
 # 17-03-09, https://keybase.io/larsschulz
 
 # Libraries
-install.packages("aqp") #momentan nicht benötigt aber interessante Funktionen
-library("aqp")
+# install.packages("aqp") #momentan nicht benötigt aber interessante Funktionen
+# library("aqp")
 library("gdata")
 
 # Arbeitsverzeichnis auswählen
