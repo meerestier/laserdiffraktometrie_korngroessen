@@ -3,6 +3,8 @@
 # 17-03-09, https://keybase.io/larsschulz
 
 # Libraries
+install.packages("aqp") #momentan nicht benötigt aber interessante Funktionen
+library("aqp")
 library("gdata")
 
 # Arbeitsverzeichnis auswählen
@@ -49,5 +51,11 @@ korngroessen_stats$ton <- rowSums(korngroessen_stats[, 2:40])
 korngroessen_stats$schluff <- rowSums(korngroessen_stats[, 41:65])
 korngroessen_stats$sand <- rowSums(korngroessen_stats[, 66:93])
 
-write.csv(korngroessen_stats, file="korngroessen_stats.csv")
+# Drop columns not needed
+korngroessen_overview <- korngroessen_stats[,c(1,94:96)]
+
+# Klassifikation nach KA-5
+# TODO
+
+write.csv(korngroessen_stats, file="korngroessen_overview.csv")
 
