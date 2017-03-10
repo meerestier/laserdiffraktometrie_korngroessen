@@ -47,12 +47,27 @@ variables_in_cols <- names(korngroessen_clean[,-1])
 # Mittel pro Faktorstufe
 korngroessen_stats <- aggregate(korngroessen_clean[, variables_in_cols], list(Sample.Name), mean)
 
-korngroessen_stats$ton <- rowSums(korngroessen_stats[, 2:40])
-korngroessen_stats$schluff <- rowSums(korngroessen_stats[, 41:65])
-korngroessen_stats$sand <- rowSums(korngroessen_stats[, 66:93])
+# Create overview of classes
+korngroessen_overview <- as.data.frame(korngroessen_stats[,1])
 
-# Drop columns not needed
-korngroessen_overview <- korngroessen_stats[,c(1,94:96)]
+korngroessen_overview$ton <- rowSums(korngroessen_stats[, 2:40]) # ton insgesamt
+korngroessen_overview$schluff <- rowSums(korngroessen_stats[, 41:65]) # schluff insgesamt
+korngroessen_overview$sand <- rowSums(korngroessen_stats[, 66:93]) # sand insgesamt
+
+# Mittel pro Faktorstufe (fein)
+names(korngroessen_stats)
+korngroessen_overview$fT <- rowSums(korngroessen_stats[, 2:23]) # feinton
+korngroessen_overview$mT <- rowSums(korngroessen_stats[, 24:31]) # mittelton
+korngroessen_overview$gT <- rowSums(korngroessen_stats[, 32:40]) # grobton
+
+korngroessen_overview$fU <- rowSums(korngroessen_stats[, 41:48]) # feinschluff
+korngroessen_overview$mU <- rowSums(korngroessen_stats[, 49:57]) # mittelschluff
+korngroessen_overview$gU <- rowSums(korngroessen_stats[, 58:65]) # grobschluff
+
+korngroessen_overview$fS <- rowSums(korngroessen_stats[, 66:74]) # feinsand
+korngroessen_overview$mS <- rowSums(korngroessen_stats[, 75:82]) # mittelsand
+korngroessen_overview$gS <- rowSums(korngroessen_stats[, 83:93]) # grobsand
+
 
 # Klassifikation nach KA-5
 # TODO
