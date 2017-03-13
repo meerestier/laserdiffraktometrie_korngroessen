@@ -72,5 +72,5 @@ korngroessen_overview$gS <- rowSums(korngroessen_stats[, 83:93]) # grobsand
 # Klassifikation nach KA-5
 # TODO
 
-write.csv(korngroessen_stats, file="korngroessen_overview.csv")
+write.csv(korngroessen_overview, file="korngroessen_overview.csv")
 
