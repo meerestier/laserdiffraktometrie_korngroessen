@@ -102,3 +102,5 @@ text(x, ton+fU+mU+gU+fS/2, labels=round(korngroessen_overview$gU), col="black", 
 text(x, ton+fU+mU+gU+fS+mS/2, labels=round(korngroessen_overview$gU), col="black", srt = 90)
 text(x, ton+fU+mU+gU+fS+mS+gS/2, labels=round(korngroessen_overview$gU), col="black", srt = 90)
 
+dev.copy2pdf(file = "plots/korngroessen_plot.pdf")
+
