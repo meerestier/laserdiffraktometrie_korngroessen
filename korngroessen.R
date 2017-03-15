@@ -10,7 +10,6 @@ library("gdata") # Für Datenimport und -manipulation etc.
 # Arbeitsverzeichnis auswählen
 setwd("~/Dropbox/Jobs Active/Studium/TU-1611 Kiecker Naturschutzgebiet/1-Entwicklung/9-Laborarbeiten/Korngroessen")
 
-
 # Daten einlesen
 # https://martinsbioblogg.wordpress.com/2014/03/06/using-r-common-errors-in-table-import/
 korngroessen <- read.delim("data/all kieker samples.txt", fileEncoding="UCS-2LE", header = T, dec=",", stringsAsFactors=F)
@@ -25,13 +24,6 @@ korngroessen_data <- cbind(korngroessen[,'Sample.Name'], korngroessen[,45:320])
 colnames(korngroessen_data)[1] <- "Sample"
 str(korngroessen_data)
 attach(korngroessen_data)
-
-# Optional
-      # Anreichern mit zusätlichen Informationen (auskommentieren, falls nicht erforderlich)
-      # horizont_infos <- read.xls("~/Dropbox/Jobs Active/Studium/TU-1611 Kiecker Naturschutzgebiet/1-Entwicklung/9-Laborarbeiten/Probenliste v3.xls", 6) # Probennummern holen
-      # colnames(horizont_infos)[3] <- "Sample"
-      # korngroessen_data <- merge(korngroessen_data, horizont_infos, by = "Sample")
-      # str(korngroessen_data)
 
 # Umbenennen
 zeile_1 <- korngroessen_data[1,]
@@ -76,7 +68,19 @@ korngroessen_overview$fS <- rowSums(korngroessen_stats[, 66:74]) # feinsand
 korngroessen_overview$mS <- rowSums(korngroessen_stats[, 75:82]) # mittelsand
 korngroessen_overview$gS <- rowSums(korngroessen_stats[, 83:93]) # grobsand
 
-attach(korngroessen_overview)
+
+      # Optional ----
+      # Anreichern mit zusätlichen Informationen (auskommentieren, falls nicht erforderlich)
+      horizont_infos <- read.xls("~/Dropbox/Jobs Active/Studium/TU-1611 Kiecker Naturschutzgebiet/1-Entwicklung/9-Laborarbeiten/Probenliste v3.xls", 6) # Probennummern holen
+      colnames(horizont_infos)[3] <- "Sample"
+      korngroessen_overview <- merge(korngroessen_overview, horizont_infos[2:3], by = "Sample")
+      korngroessen_overview$Sample <- korngroessen_overview$Probe
+      korngroessen_overview$Probe <- NULL
+      
+      # Reihenfolge nach Probennummer
+      korngroessen_overview <- korngroessen_overview[with(korngroessen_overview, order(Sample)), ]
+      attach(korngroessen_overview)
+
 # Klassifikation nach KA-5
 # TODO
 
@@ -90,7 +94,7 @@ str(korngroessen_matrix)
 barplot(korngroessen_matrix )
 
 
-x <- barplot(korngroessen_matrix, col=NULL, 
+x <- barplot(korngroessen_matrix, col=c("red", "cadetblue2", "cadetblue3", "cadetblue4", "goldenrod2", "goldenrod3", "goldenrod4"), 
              legend=TRUE, border=NA, xlim=NULL, args.legend=
                list(bty="n", border=NA), 
              ylab="Cumulative percentage", xlab="Sample", las=2, names=matrix_names)
