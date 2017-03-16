@@ -31,3 +31,4 @@ rgb_values_hex <- munsell2rgb(bodenfarbe$hue, bodenfarbe$value, bodenfarbe$chrom
             maxColorValue=1, return_triplets=F)
 
 
+bodenfarbe <- cbind(bodenfarbe, rgb_values_hex)
